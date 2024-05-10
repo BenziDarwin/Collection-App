@@ -2,7 +2,7 @@
 
 import { CovalentClient } from "@covalenthq/client-sdk";
 import { CopyAll } from "@mui/icons-material";
-import { Alert, AlertColor, AlertProps, Button, IconButton, Snackbar, TextField } from "@mui/material";
+import { Alert, AlertColor, AlertProps, Box, Button, IconButton, Modal, Snackbar, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import localFont from "next/font/local";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import * as React from "react";
 import Countdown from "./Countdown";
 import { address } from "./constants";
+import {HelioCheckout} from '@heliofi/checkout-react'
 
 const ApiServices = async (chain:any, address:string) => {
   const client = new CovalentClient("cqt_rQ6pkkxtcphMdDDvMkkxtCVG3tXg");
@@ -26,6 +27,18 @@ const ApiServices = async (chain:any, address:string) => {
   return total;
 };
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 const aubette = localFont({ src: "/fonts/aubette.woff2" });
 const bricksans = localFont({ src: "/fonts/bricksans.woff2" });
 const ambitsek = localFont({ src: "/fonts/ambitsek.woff2" });
@@ -38,16 +51,10 @@ export default function Hero() {
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState<{type:AlertColor;message:string}>({type:"success", message:""});
+   const [modalOpen, setModalOpen] = React.useState(false);
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
 
-  const helioConfig = {
-    paylinkId: "663df9ccbcab89f49f956026",
-    display: "button",
-    onSuccess: (event:any) => console.log(event),
-    onError: (event:any) => console.log(event),
-    onPending: (event:any) => console.log(event),
-    onCancel: () => console.log("Cancelled payment"),
-    onStartPayment: () => console.log("Starting payment"),
-};
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -78,13 +85,8 @@ export default function Hero() {
   const reduceAddress = (address:string) =>  {
     return address.substring(0,3) + "..." + address.substring(address.length-3,address.length+1)
   }
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleSubmit = () => {
+   
   };
 
   return (
@@ -99,6 +101,7 @@ export default function Hero() {
         xs={false}
         sm={6}
       >
+             
         <Image
           src="/images/halo.png"
           style={{ position: "absolute", bottom: "0px", left: "0px" }}
@@ -107,25 +110,18 @@ export default function Hero() {
           alt="Halo"
         />
         <Image
-          src="/images/bforbear.png"
-          style={{ position: "absolute", bottom: "200px", left: "50px" }}
-          width={250}
-          height={250}
+          src="/images/b.png"
+          style={{ position: "absolute", bottom: "100px", left: "40px" }}
+          width={500}
+          height={500}
           alt="B"
         />
         <Image
-          src="/images/bears-1.png"
+          src="/images/hero.png"
           style={{ position: "absolute", bottom: "0px", left: "0px" }}
           width={500}
           height={500}
           alt="Bears"
-        />
-        <Image
-          src="/images/title.png"
-          style={{ position: "absolute", bottom: "0px", left: "10px" }}
-          width={600}
-          height={500}
-          alt="Title"
         />
       </Grid>
       <Grid
@@ -158,34 +154,20 @@ export default function Hero() {
         >
           already raised
         </Typography>
-        <TextField
-          className={aubette.className}
-          sx={{
-            "& .MuiInputBase-input": {
-              textAlign: "center",
-              backgroundColor: "white",
-              color: "#5A5A5A",
-              height: "20px",
-              padding: "5px 14px",
-              textTransform:"uppercase",
-              fontSize: "0.875rem",
-              borderRadius: "4px",
-              border: "#429928 1px solid"
-            },
-            "& .MuiInputBase-root": {
-              height: "30px",
-              margin: 0,
-              width: "auto",
-              color:"black",
-              borderRadius: "4px",
-            },
-            width: "50%",
-            borderRadius: "4px",
-            margin: "0px",
-          }}
-          placeholder="Enter Amount"
-        />
         <br />
+         <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+             <HelioCheckout config={{
+    paylinkId: "663df9ccbcab89f49f956026"
+}} />
+        </Box>
+      </Modal>
+      
         <Button
           sx={{
             textTransform: "capitalize",
@@ -200,6 +182,7 @@ export default function Hero() {
             },
           }}
           size="large"
+          onClick={() => handleModalOpen()}
         >
           <span style={{ fontSize: "20px" }} className={aubette.className}>
             JOIN PRESALE
@@ -251,25 +234,18 @@ export default function Hero() {
           alt="Halo"
         />
         <Image
-          src="/images/bforbear.png"
+          src="/images/b.png"
           style={{ position: "absolute", bottom: "-18vh", right: "10px" }}
-          width={150}
-          height={150}
+          width={300}
+          height={300}
           alt="B"
         />
         <Image
-          src="/images/bears-1.png"
+          src="/images/hero.png"
           style={{ position: "absolute", bottom: "-20vh", left: "0px" }}
           width={300}
           height={300}
           alt="Bears"
-        />
-        <Image
-          src="/images/title.png"
-          style={{ position: "absolute", bottom: "-20vh", left: "10px" }}
-          width={400}
-          height={400}
-          alt="Title"
         />
       </Grid>
        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
