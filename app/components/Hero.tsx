@@ -7,6 +7,21 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import * as React from "react";
 import localFont from "next/font/local";
+import { CovalentClient } from "@covalenthq/client-sdk";
+
+const ApiServices = async () => {
+  const client = new CovalentClient("cqt_rQ6pkkxtcphMdDDvMkkxtCVG3tXg");
+  const resp = await client.BalanceService.getTokenBalancesForWalletAddress(
+    "bsc-mainnet",
+    "0x54F94eE80219f2BC014007928fB713150ed6FC14",
+    { quoteCurrency: "USD" },
+  );
+  let total = 0;
+  for (let x = 0; x < resp.data.items.length; x++) {
+    total += parseFloat(resp.data.items[x].pretty_quote.substring(1));
+  }
+  return total;
+};
 
 const aubette = localFont({ src: "/fonts/aubette.woff2" });
 const bricksans = localFont({ src: "/fonts/bricksans.woff2" });
@@ -15,6 +30,16 @@ const marykate = localFont({ src: "/fonts/marykate.woff2" });
 const rubikMarkerHatch = localFont({ src: "/fonts/RubikMarkerHatch.woff2" });
 
 export default function Hero() {
+  const [balance, setBalance] = React.useState(0);
+
+  React.useEffect(() => {
+    (async () => {
+      let val = await ApiServices();
+      console.log(val);
+      setBalance(val);
+    })();
+  }, []);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -88,7 +113,7 @@ export default function Hero() {
           sx={{ fontSize: "78px", marginTop: "15px", color: "white" }}
           className={bricksans.className}
         >
-          5,760.2 SOL
+          $ {balance}
         </Typography>
         <Typography
           sx={{ fontSize: "20px", marginY: "10px", color: "black" }}
@@ -138,19 +163,32 @@ export default function Hero() {
           </span>
         </Button>
         <Typography
-          sx={{ fontSize: "15px", marginY: "10px", color: "black", backgroundColor:"#D2F8C6", borderRadius:"20px", padding:"10px" }}
+          sx={{
+            fontSize: "15px",
+            marginY: "10px",
+            color: "black",
+            backgroundColor: "#D2F8C6",
+            borderRadius: "20px",
+            padding: "10px",
+          }}
           className={ambitsek.className}
         >
           PRESALE WALLET: 5GmZ...9gDV <CopyAll />
         </Typography>
         <Typography
-          sx={{  marginY: "10px", fontSize: "32px", color: "#F76C1B" }}
+          sx={{ marginY: "10px", fontSize: "32px", color: "#F76C1B" }}
           className={rubikMarkerHatch.className}
         >
           POWERED BY
         </Typography>
         <br />
-        <Image style={{ marginTop: "10px"}} src="/images/helio.png" width={100} height={100} alt="helio" />
+        <Image
+          style={{ marginTop: "10px" }}
+          src="/images/helio.png"
+          width={100}
+          height={100}
+          alt="helio"
+        />
       </Grid>
       <Grid
         sx={{ display: { md: "none", xs: "block" } }}
