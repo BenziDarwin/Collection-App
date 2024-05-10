@@ -111,7 +111,7 @@ export default function Hero() {
         />
         <Image
           src="/images/hearo.png"
-          style={{ position: "fixed", top: "10vh", left: "0px" }}
+          style={{ position: "fixed", top: "15vh", left: "0px" }}
           width={1000}
           height={1000}
           alt="B"
@@ -221,14 +221,14 @@ export default function Hero() {
       >
         <Image
           src="/images/halo.png"
-          style={{ position: "absolute", bottom: "0vh", left: "0px" }}
+          style={{ position: "fixed", bottom: "0vh", left: "0px" }}
           width={300}
           height={300}
           alt="Halo"
         />
         <Image
           src="/images/hearo.png"
-          style={{ position: "absolute", bottom: "0vh", right: "0px" }}
+          style={{ position: "fixed", bottom: "0vh", right: "0px" }}
           width={1500}
           height={1500}
           alt="B"
