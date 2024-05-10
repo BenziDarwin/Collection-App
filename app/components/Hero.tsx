@@ -97,7 +97,7 @@ export default function Hero() {
         />
         <Image
           src="/images/bforbear.png"
-          style={{ position: "absolute", top: "0px", left: "50px" }}
+          style={{ position: "absolute", bottom: "200px", left: "50px" }}
           width={250}
           height={250}
           alt="B"
@@ -220,6 +220,7 @@ export default function Hero() {
         <br />
         <Image
           src="/images/helio.png"
+          style={{marginTop:"-10px"}}
           width={100}
           height={100}
           alt="helio"
