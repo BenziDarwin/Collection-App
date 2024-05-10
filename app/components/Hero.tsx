@@ -207,7 +207,7 @@ export default function Hero() {
         <br />
         <Image
           src="/images/helio.png"
-          style={{marginTop:"-10px"}}
+          style={{marginTop:"-20px"}}
           width={100}
           height={100}
           alt="helio"
