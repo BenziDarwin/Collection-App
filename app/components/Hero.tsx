@@ -91,7 +91,7 @@ export default function Hero() {
           5,760.2 SOL
         </Typography>
         <Typography
-          sx={{ fontSize: "18px", marginY: "10px", color: "white" }}
+          sx={{ fontSize: "20px", marginY: "10px", color: "black" }}
           className={ambitsek.className}
         >
           already raised
@@ -122,7 +122,7 @@ export default function Hero() {
           sx={{
             textTransform: "capitalize",
             borderRadius: "20px",
-            marginTop: "10px",
+            marginY: "15px",
             backgroundColor: "#C1FF72",
             borderColor: "#C1FF72",
             color: "black",
