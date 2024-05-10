@@ -139,7 +139,7 @@ export default function Hero() {
           $ {balance}
         </Typography>
         <Typography
-          sx={{ fontSize: "30px", marginBottom: "40px", marginTop:"-10px", color: "black" , fontWeight:900}}
+          sx={{ fontSize: "30px", marginBottom: "20px", marginTop:"-10px", color: "black" , fontWeight:900}}
           className={ambitsek.className}
         >
           already raised
