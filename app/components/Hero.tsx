@@ -93,7 +93,7 @@ export default function Hero() {
     <Grid
       container
       component="main"
-      sx={{ minHeight: { md: "100vh", xs: "120vh" } }}
+      sx={{ minHeight: { md: "100vh", xs: "100vh" } }}
     >
       <Grid
         item
@@ -104,24 +104,17 @@ export default function Hero() {
              
         <Image
           src="/images/halo.png"
-          style={{ position: "absolute", bottom: "0px", left: "0px" }}
-          width={600}
-          height={600}
+          style={{ position: "fixed", top: "0vh", left: "0px" }}
+          width={800}
+          height={800}
           alt="Halo"
         />
         <Image
-          src="/images/b.png"
-          style={{ position: "absolute", bottom: "100px", left: "40px" }}
-          width={500}
-          height={500}
+          src="/images/hearo.png"
+          style={{ position: "fixed", top: "10vh", left: "0px" }}
+          width={1000}
+          height={1000}
           alt="B"
-        />
-        <Image
-          src="/images/hero.png"
-          style={{ position: "absolute", bottom: "0px", left: "0px" }}
-          width={500}
-          height={500}
-          alt="Bears"
         />
       </Grid>
       <Grid
@@ -137,16 +130,16 @@ export default function Hero() {
         }}
       >
         <Typography
-          sx={{ fontSize: "18px", marginTop: "20px" }}
+          sx={{ fontSize: "32px", marginTop: "20px" }}
           className={aubette.className}
         >
           <Countdown targetDate={new Date("2024-05-12T13:02:00")}/>
         </Typography>
         <Typography
-          sx={{ fontSize: "100px", color: "white" }}
+          sx={{ fontSize: "75px", color: "white" }}
           className={vt.className}
         >
-          $ <span style={{fontSize: "90px",}}className={bricksans.className}>{balance.toFixed(2).padEnd(4, '0')}</span>
+          ${balance.toFixed(2).padEnd(4, '0')}
         </Typography>
         <Typography
           sx={{ fontSize: "30px", marginBottom: "20px", marginTop:"-10px", color: "black" , fontWeight:900}}
@@ -228,24 +221,17 @@ export default function Hero() {
       >
         <Image
           src="/images/halo.png"
-          style={{ position: "absolute", bottom: "-20vh", left: "0px" }}
-          width={400}
-          height={400}
+          style={{ position: "absolute", bottom: "0vh", left: "0px" }}
+          width={300}
+          height={300}
           alt="Halo"
         />
         <Image
-          src="/images/b.png"
-          style={{ position: "absolute", bottom: "-18vh", right: "10px" }}
-          width={300}
-          height={300}
+          src="/images/hearo.png"
+          style={{ position: "absolute", bottom: "0vh", right: "0px" }}
+          width={1500}
+          height={1500}
           alt="B"
-        />
-        <Image
-          src="/images/hero.png"
-          style={{ position: "absolute", bottom: "-20vh", left: "0px" }}
-          width={300}
-          height={300}
-          alt="Bears"
         />
       </Grid>
        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
