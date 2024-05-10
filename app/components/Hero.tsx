@@ -80,7 +80,7 @@ export default function Hero() {
     <Grid
       container
       component="main"
-      sx={{ minHeight: { md: "100vh", xs: "120%" } }}
+      sx={{ minHeight: { md: "100vh", xs: "120vh" } }}
     >
       <Grid
         item
@@ -233,28 +233,28 @@ export default function Hero() {
       >
         <Image
           src="/images/halo.png"
-          style={{ position: "absolute", bottom: "0%", left: "0px" }}
+          style={{ position: "absolute", bottom: "-20vh", left: "0px" }}
           width={400}
           height={400}
           alt="Halo"
         />
         <Image
           src="/images/bforbear.png"
-          style={{ position: "absolute", bottom: "2%", right: "10px" }}
+          style={{ position: "absolute", bottom: "-18vh", right: "10px" }}
           width={150}
           height={150}
           alt="B"
         />
         <Image
           src="/images/bears-1.png"
-          style={{ position: "absolute", bottom: "0%", left: "0px" }}
+          style={{ position: "absolute", bottom: "-20vh", left: "0px" }}
           width={300}
           height={300}
           alt="Bears"
         />
         <Image
           src="/images/title.png"
-          style={{ position: "absolute", bottom: "0%", left: "10px" }}
+          style={{ position: "absolute", bottom: "-20vh", left: "10px" }}
           width={400}
           height={400}
           alt="Title"
