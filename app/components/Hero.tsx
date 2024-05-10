@@ -2,13 +2,14 @@
 
 import { CovalentClient } from "@covalenthq/client-sdk";
 import { CopyAll } from "@mui/icons-material";
-import { Alert, Button, Snackbar, TextField } from "@mui/material";
+import { Alert, AlertColor, AlertProps, Button, IconButton, Snackbar, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import localFont from "next/font/local";
 import Image from "next/image";
 import * as React from "react";
 import Countdown from "./Countdown";
+import { address } from "./constants";
 
 const ApiServices = async (chain:any, address:string) => {
   const client = new CovalentClient("cqt_rQ6pkkxtcphMdDDvMkkxtCVG3tXg");
@@ -35,7 +36,7 @@ export default function Hero() {
   const [balance, setBalance] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState<{type:AlertColor;message:string}>({type:"success", message:""});
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -56,13 +57,16 @@ export default function Hero() {
         setBalance(ftm + solana);
       } catch(e) {
         console.log(e)
-        setMessage(e + " Unknown error occured!");
+        setMessage({type:"error", message:`${e} Unknown error occured!`});
         setOpen(true);
       }
    
     })();
   }, []);
 
+  const reduceAddress = (address:string) =>  {
+    return address.substring(0,3) + "..." + address.substring(address.length-3,address.length+1)
+  }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -202,7 +206,11 @@ export default function Hero() {
           }}
           className={ambitsek.className}
         >
-          PRESALE WALLET: 5GmZ...9gDV <CopyAll />
+          PRESALE WALLET: {reduceAddress(address)} <IconButton onClick={async() => {
+            await navigator.clipboard.writeText(address);
+            setMessage({type:"success", message:"Successfully added to clipboard!"});
+            setOpen(true);
+          }}><CopyAll /></IconButton>
         </Typography>
         <Typography
           sx={{ marginY: "10px", fontSize: "32px", color: "#F76C1B" }}
@@ -254,8 +262,8 @@ export default function Hero() {
         />
       </Grid>
        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          {message}
+        <Alert onClose={handleClose} severity={message.type} sx={{ width: "100%" }}>
+          {message.message}
         </Alert>
       </Snackbar>
     </Grid>
