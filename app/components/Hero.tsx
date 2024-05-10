@@ -80,7 +80,7 @@ export default function Hero() {
     <Grid
       container
       component="main"
-      sx={{ minHeight: { md: "100vh", xs: "150vh" } }}
+      sx={{ minHeight: { md: "100vh", xs: "120%" } }}
     >
       <Grid
         item
@@ -118,7 +118,6 @@ export default function Hero() {
         />
       </Grid>
       <Grid
-        container
         item
         xs={12}
         sm={6}
@@ -134,7 +133,7 @@ export default function Hero() {
           sx={{ fontSize: "18px", marginTop: "20px" }}
           className={aubette.className}
         >
-          <Countdown targetDate={new Date("2024-12-20T23:59:59")}/>
+          <Countdown targetDate={new Date("2024-05-12T13:02:00")}/>
         </Typography>
         <Typography
           sx={{ fontSize: "100px", color: "white" }}
@@ -234,28 +233,28 @@ export default function Hero() {
       >
         <Image
           src="/images/halo.png"
-          style={{ position: "absolute", bottom: "-50vh", left: "0px" }}
+          style={{ position: "absolute", bottom: "0%", left: "0px" }}
           width={400}
           height={400}
           alt="Halo"
         />
         <Image
           src="/images/bforbear.png"
-          style={{ position: "absolute", bottom: "-46vh", right: "10px" }}
+          style={{ position: "absolute", bottom: "2%", right: "10px" }}
           width={150}
           height={150}
           alt="B"
         />
         <Image
           src="/images/bears-1.png"
-          style={{ position: "absolute", bottom: "-50vh", left: "0px" }}
+          style={{ position: "absolute", bottom: "0%", left: "0px" }}
           width={300}
           height={300}
           alt="Bears"
         />
         <Image
           src="/images/title.png"
-          style={{ position: "absolute", bottom: "-50vh", left: "10px" }}
+          style={{ position: "absolute", bottom: "0%", left: "10px" }}
           width={400}
           height={400}
           alt="Title"
