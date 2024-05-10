@@ -31,12 +31,23 @@ const bricksans = localFont({ src: "/fonts/bricksans.woff2" });
 const ambitsek = localFont({ src: "/fonts/ambitsek.woff2" });
 const marykate = localFont({ src: "/fonts/marykate.woff2" });
 const rubikMarkerHatch = localFont({ src: "/fonts/RubikMarkerHatch.woff2" });
+const vt = localFont({src: "/fonts/vt.woff2"})
 
 export default function Hero() {
   const [balance, setBalance] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState<{type:AlertColor;message:string}>({type:"success", message:""});
+
+  const helioConfig = {
+    paylinkId: "663df9ccbcab89f49f956026",
+    display: "button",
+    onSuccess: (event:any) => console.log(event),
+    onError: (event:any) => console.log(event),
+    onPending: (event:any) => console.log(event),
+    onCancel: () => console.log("Cancelled payment"),
+    onStartPayment: () => console.log("Starting payment"),
+};
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -137,9 +148,9 @@ export default function Hero() {
         </Typography>
         <Typography
           sx={{ fontSize: "100px", color: "white" }}
-          className={bricksans.className}
+          className={vt.className}
         >
-          $ {balance}
+          $ <span style={{fontSize: "90px",}}className={bricksans.className}>{balance.toFixed(2).padEnd(4, '0')}</span>
         </Typography>
         <Typography
           sx={{ fontSize: "30px", marginBottom: "20px", marginTop:"-10px", color: "black" , fontWeight:900}}
