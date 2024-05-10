@@ -19,10 +19,9 @@ const ApiServices = async (chain:any, address:string) => {
     address,
     { quoteCurrency: "USD" },
   );
-  console.log(resp.data)
   let total = 0;
   for (let x = 0; x < resp.data.items.length; x++) {
-    total += parseFloat(resp.data.items[x].pretty_quote.substring(1));
+    total = total + resp.data.items[x].quote;
   }
   return total;
 };
@@ -72,9 +71,9 @@ export default function Hero() {
       try{
         let ftm = await ApiServices("fantom-mainnet","0x54F94eE80219f2BC014007928fB713150ed6FC14");
         let solana = await ApiServices("solana-mainnet", "3YXBujjAdVFqMgNxHLUS7dmuAh7VXAfuSVWs9YQ9LcBw");
+       
         setBalance(ftm + solana);
       } catch(e) {
-        console.log(e)
         setMessage({type:"error", message:`${e} Unknown error occured!`});
         setOpen(true);
       }
