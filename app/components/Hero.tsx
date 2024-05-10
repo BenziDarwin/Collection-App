@@ -1,21 +1,23 @@
 "use client";
 
+import { CovalentClient } from "@covalenthq/client-sdk";
 import { CopyAll } from "@mui/icons-material";
-import { Button, TextField } from "@mui/material";
+import { Alert, Button, Snackbar, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import localFont from "next/font/local";
 import Image from "next/image";
 import * as React from "react";
-import localFont from "next/font/local";
-import { CovalentClient } from "@covalenthq/client-sdk";
+import Countdown from "./Countdown";
 
-const ApiServices = async () => {
+const ApiServices = async (chain:any, address:string) => {
   const client = new CovalentClient("cqt_rQ6pkkxtcphMdDDvMkkxtCVG3tXg");
   const resp = await client.BalanceService.getTokenBalancesForWalletAddress(
-    "bsc-mainnet",
-    "0x54F94eE80219f2BC014007928fB713150ed6FC14",
+    chain,
+    address,
     { quoteCurrency: "USD" },
   );
+  console.log(resp.data)
   let total = 0;
   for (let x = 0; x < resp.data.items.length; x++) {
     total += parseFloat(resp.data.items[x].pretty_quote.substring(1));
@@ -31,12 +33,33 @@ const rubikMarkerHatch = localFont({ src: "/fonts/RubikMarkerHatch.woff2" });
 
 export default function Hero() {
   const [balance, setBalance] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   React.useEffect(() => {
     (async () => {
-      let val = await ApiServices();
-      console.log(val);
-      setBalance(val);
+      try{
+        let ftm = await ApiServices("fantom-mainnet","0x54F94eE80219f2BC014007928fB713150ed6FC14");
+        let solana = await ApiServices("solana-mainnet", "3YXBujjAdVFqMgNxHLUS7dmuAh7VXAfuSVWs9YQ9LcBw");
+        setBalance(ftm + solana);
+      } catch(e) {
+        console.log(e)
+        setMessage(e + " Unknown error occured!");
+        setOpen(true);
+      }
+   
     })();
   }, []);
 
@@ -107,16 +130,16 @@ export default function Hero() {
           sx={{ fontSize: "18px", marginTop: "20px" }}
           className={aubette.className}
         >
-          23:59:59 LEFT
+          <Countdown targetDate={new Date("2024-12-20T23:59:59")}/>
         </Typography>
         <Typography
-          sx={{ fontSize: "78px", marginTop: "15px", color: "white" }}
+          sx={{ fontSize: "100px", color: "white" }}
           className={bricksans.className}
         >
           $ {balance}
         </Typography>
         <Typography
-          sx={{ fontSize: "20px", marginY: "10px", color: "black" }}
+          sx={{ fontSize: "30px", marginBottom: "40px", marginTop:"-10px", color: "black" , fontWeight:900}}
           className={ambitsek.className}
         >
           already raised
@@ -127,20 +150,26 @@ export default function Hero() {
             "& .MuiInputBase-input": {
               textAlign: "center",
               backgroundColor: "white",
-              color: "grey",
+              color: "#5A5A5A",
               height: "20px",
               padding: "5px 14px",
+              textTransform:"uppercase",
               fontSize: "0.875rem",
+              borderRadius: "4px",
+              border: "#429928 1px solid"
             },
             "& .MuiInputBase-root": {
               height: "30px",
               margin: 0,
               width: "auto",
+              color:"black",
+              borderRadius: "4px",
             },
             width: "50%",
+            borderRadius: "4px",
             margin: "0px",
           }}
-          placeholder="Amount"
+          placeholder="Enter Amount"
         />
         <br />
         <Button
@@ -164,7 +193,7 @@ export default function Hero() {
         </Button>
         <Typography
           sx={{
-            fontSize: "15px",
+            fontSize: "12px",
             marginY: "10px",
             color: "black",
             backgroundColor: "#D2F8C6",
@@ -183,7 +212,6 @@ export default function Hero() {
         </Typography>
         <br />
         <Image
-          style={{ marginTop: "10px" }}
           src="/images/helio.png"
           width={100}
           height={100}
@@ -225,6 +253,11 @@ export default function Hero() {
           alt="Title"
         />
       </Grid>
+       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {message}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }
