@@ -199,7 +199,7 @@ export default function Hero() {
           }}><CopyAll /></IconButton>
         </Typography>
         <Typography
-          sx={{ marginY: "10px", fontSize: "32px", color: "#F76C1B" }}
+          sx={{ marginTop: "10px", fontSize: "32px", color: "#F76C1B" }}
           className={rubikMarkerHatch.className}
         >
           POWERED BY
